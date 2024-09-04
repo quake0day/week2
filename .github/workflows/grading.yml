@@ -14,9 +14,3 @@ jobs:
           distribution: 'adopt'
       - name: Build and test with Maven
         run: mvn -B test --file pom.xml
-      - name: Calculate and display score
-        run: |
-          TOTAL_SCORE=$(grep -h "Total Score:" target/surefire-reports/TEST-*.txt | awk '{print $NF}' | awk '{s+=$1} END {print s}')
-          PERCENTAGE=$(echo "scale=2; $TOTAL_SCORE / 100 * 100" | bc)
-          echo "Total Score: $TOTAL_SCORE out of 100" >> $GITHUB_STEP_SUMMARY
-          echo "Percentage: $PERCENTAGE%" >> $GITHUB_STEP_SUMMARY

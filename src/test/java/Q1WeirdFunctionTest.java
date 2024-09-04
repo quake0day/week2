@@ -2,11 +2,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
-@RunWith(ScoreCalculator.class)
 public class Q1WeirdFunctionTest {
 
     @Test
-    @Score(12.5)
     public void testRecursive() {
         assertEquals(0, Q1WeirdFunction.fRecursive(0));
         assertEquals(1, Q1WeirdFunction.fRecursive(1));
@@ -16,7 +14,6 @@ public class Q1WeirdFunctionTest {
     }
 
     @Test
-    @Score(12.5)
     public void testIterative() {
         assertEquals(0, Q1WeirdFunction.fIterative(0));
         assertEquals(1, Q1WeirdFunction.fIterative(1));
