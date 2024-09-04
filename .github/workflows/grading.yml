@@ -1,0 +1,23 @@
+name: Grade Assignment
+
+on: [push]
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Run tests and calculate score
+        run: |
+          mvn test -Dtest=ScoreCalculator
+          TOTAL_SCORE=$(grep 'Total Score:' target/surefire-reports/TEST-*.xml | sed 's/.*Total Score: \([0-9.]*\).*/\1/')
+          PERCENTAGE=$(echo "scale=2; $TOTAL_SCORE / 100 * 100" | bc)
+          echo "Total Score: $TOTAL_SCORE out of 100" >> $GITHUB_STEP_SUMMARY
+          echo "Percentage: $PERCENTAGE%" >> $GITHUB_STEP_SUMMARY
