@@ -1,7 +1,10 @@
 // src/test/java/Q3PrintArrayBackwardsTest.java
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static org.junit.Assert.*;
+@RunWith(ScoreCalculator.class)
 
 public class Q3PrintArrayBackwardsTest {
 

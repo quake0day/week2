@@ -1,7 +1,10 @@
 // src/test/java/Q2PrintArrayTest.java
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import static org.junit.Assert.*;
+@RunWith(ScoreCalculator.class)
 
 public class Q2PrintArrayTest {
 

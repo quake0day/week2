@@ -4,12 +4,24 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.Description;
+import org.junit.runner.Result;
 
 public class ScoreCalculator extends BlockJUnit4ClassRunner {
-    private double totalScore = 0;
+    private static double totalScore = 0;
 
     public ScoreCalculator(Class<?> klass) throws InitializationError {
         super(klass);
+    }
+
+    @Override
+    public void run(final RunNotifier notifier) {
+        notifier.addListener(new RunListener() {
+            @Override
+            public void testRunFinished(Result result) {
+                System.out.println("Total Score: " + totalScore);
+            }
+        });
+        super.run(notifier);
     }
 
     @Override
@@ -21,11 +33,7 @@ public class ScoreCalculator extends BlockJUnit4ClassRunner {
         super.runChild(method, notifier);
     }
 
-    public double getTotalScore() {
-        return totalScore;
-    }
-
-    private class ScoreListener extends RunListener {
+    private static class ScoreListener extends RunListener {
         private final double methodScore;
 
         ScoreListener(double methodScore) {
