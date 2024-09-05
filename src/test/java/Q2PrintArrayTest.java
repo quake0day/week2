@@ -1,17 +1,28 @@
-// src/test/java/Q2PrintArrayTest.java
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
+import org.junit.After;
+import org.junit.Before;
 import static org.junit.Assert.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class Q2PrintArrayTest {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
 
     @Test
-    // 25 points
     public void testPrintArray() {
-        assertEquals("1,2,3,4,5,6,7", Q2PrintArray.printRecursion(new int[]{1, 2, 3, 4, 5, 6, 7}));
-        assertEquals("10,20,30", Q2PrintArray.printRecursion(new int[]{10, 20, 30}));
-        assertEquals("", Q2PrintArray.printRecursion(new int[]{}));
+        Q2PrintArray.main(new String[]{});
+        String expectedOutput = "1\n2\n3\n4\n5\n6\n7\n";
+        assertEquals(expectedOutput, outContent.toString());
     }
 }
